@@ -1,13 +1,10 @@
-# You can change this base image to anything else
-# But make sure to use the correct version of Java
-FROM eclipse-temurin:17-jre-alpine
+FROM openjdk:17-jdk
 
-# Simply the artifact path
-ARG artifact=target/spring-boot-web.jar
+WORKDIR /app
 
-WORKDIR /opt/app
+COPY target/odoo-bill-integration-0.0.1-SNAPSHOT.jar /app/odoo-bill-integration.jar
 
-COPY ${artifact} app.jar
+ENTRYPOINT ["java", "-jar", "/app/odoo-bill-integration.jar"]
 
-# This should not be changed
-ENTRYPOINT ["java","-jar","app.jar"]
+EXPOSE 8080
+
