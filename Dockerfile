@@ -9,5 +9,5 @@ COPY ${artifact} odoo-bill-integration.jar
 # This should not be changed
 ENTRYPOINT ["java","-jar","odoo-bill-integration.jar"]
 
-EXPOSE 8080
+EXPOSE 8090
 
