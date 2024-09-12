@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.zimworx.odoo_bill_integration"})
 public class OdooBillIntegrationApplication {
 	private static final Logger logger = LoggerFactory.getLogger(OdooBillIntegrationApplication.class);
 
