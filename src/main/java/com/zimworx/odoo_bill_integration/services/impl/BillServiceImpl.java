@@ -1,5 +1,6 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zimworx.odoo_bill_integration.models.Invoice;
 import com.zimworx.odoo_bill_integration.models.Response;
 import com.zimworx.odoo_bill_integration.services.BillService;
@@ -18,12 +19,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class BillServiceImpl implements BillService {
 
     private final RestTemplate restTemplate;
-    private final SessionService sessionService;
+    private SessionService sessionService;
     private final String billApiUrl;
     private final String devKey;
 
@@ -42,7 +44,6 @@ public class BillServiceImpl implements BillService {
     @Override
     public List<Invoice> fetchInvoices() {
         String sessionId = sessionService.getSessionId();
-
         String url = billApiUrl + "/List/Invoice.json";
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
@@ -54,17 +55,20 @@ public class BillServiceImpl implements BillService {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(formData, headers);
-
         ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
-
 
         if (response.getStatusCode().is2xxSuccessful()) {
             Map<String, Object> responseData = (Map<String, Object>) response.getBody();
-            invoices = (List<Invoice>) responseData.get("response_data");
+            List<Map<String, Object>> rawInvoices = (List<Map<String, Object>>) responseData.get("response_data");
+
+            ObjectMapper objectMapper = new ObjectMapper();  // Jackson ObjectMapper to convert Maps to Invoice objects
+            List<Invoice> invoices = rawInvoices.stream()
+                    .map(rawInvoice -> objectMapper.convertValue(rawInvoice, Invoice.class))
+                    .collect(Collectors.toList());
+
+            return invoices;
         } else {
             throw new RuntimeException("Could not fetch invoices: " + response.getBody());
         }
-
-        return invoices;
     }
 }

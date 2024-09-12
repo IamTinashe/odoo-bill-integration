@@ -69,7 +69,6 @@ public class SessionServiceImpl implements SessionService {
         if (response.getStatusCode().is2xxSuccessful()) {
             Map<String, Object> responseData = (Map<String, Object>) response.getBody().get("response_data");
             this.sessionId = (String) responseData.get("sessionId");
-            // Set session expiry to 1 hour 55 minutes to allow for buffer before renewal
             this.sessionExpiryTime = System.currentTimeMillis() + (115 * 60 * 1000);
         } else {
             throw new RuntimeException("Failed to authenticate with Bill.com: " + response.getBody());
