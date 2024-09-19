@@ -22,12 +22,14 @@ public class OdooXmlRpcUtils {
 
     public CustomerResponse convertCustomerResponse(HashMap<String, Object> customerMap) {
         CustomerResponse customer = new CustomerResponse();
-        customer.setId((Integer) customerMap.get("id"));
-        customer.setName((String) customerMap.get("name"));
-        customer.setCity((String) customerMap.get("city"));
-        customer.setEmail((String) customerMap.get("email"));
-        customer.setPhone((String) customerMap.get("phone"));
+        customer.setId((Integer) customerMap.getOrDefault("id", 0));
+        customer.setName(customerMap.get("name") != null ? customerMap.get("name").toString() : "");
+        customer.setCity(customerMap.get("city") != null ? customerMap.get("city").toString() : "");
+        customer.setEmail(customerMap.get("email") != null ? customerMap.get("email").toString() : "");
+        customer.setPhone(customerMap.get("phone") != null ? customerMap.get("phone").toString() : "");
+
         return customer;
     }
+
 }
 
