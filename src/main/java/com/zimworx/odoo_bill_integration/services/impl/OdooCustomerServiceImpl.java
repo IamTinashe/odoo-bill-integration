@@ -30,13 +30,8 @@ public class OdooCustomerServiceImpl implements OdooCustomerService {
     }
 
     @Override
-    public List<CustomerResponse> getActiveCustomers() throws MalformedURLException, XmlRpcException {
+    public List<CustomerResponse> getClients() throws MalformedURLException, XmlRpcException {
         return fetchCustomers("Active Customer");
-    }
-
-    @Override
-    public List<CustomerResponse> getInactiveCustomers() throws MalformedURLException, XmlRpcException {
-        return fetchCustomers("Inactive");
     }
 
     private List<CustomerResponse> fetchCustomers(String customerStage) throws MalformedURLException, XmlRpcException {
