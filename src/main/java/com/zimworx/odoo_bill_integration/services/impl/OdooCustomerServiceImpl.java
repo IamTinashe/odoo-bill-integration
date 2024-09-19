@@ -42,7 +42,7 @@ public class OdooCustomerServiceImpl implements OdooCustomerService {
                 "res.partner", "search_read",
                 asList(asList(asList("x_studio_customer_stage", "=", customerStage))),
                 new HashMap<String, Object>() {{
-                    put("fields", asList("id", "name", "city", "email", "phone"));
+                    put("fields", asList("id", "name", "city", "email"));
                 }}
         )));
 
