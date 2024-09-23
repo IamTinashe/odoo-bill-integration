@@ -1,8 +1,8 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zimworx.odoo_bill_integration.models.Invoice;
-import com.zimworx.odoo_bill_integration.models.Response;
+import com.zimworx.odoo_bill_integration.models.customerResponse.Customer;
+import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
 import com.zimworx.odoo_bill_integration.services.BillService;
 import com.zimworx.odoo_bill_integration.services.SessionService;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,9 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -57,18 +56,54 @@ public class BillServiceImpl implements BillService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(formData, headers);
         ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
 
+        List<Invoice> invoices = new ArrayList<>();
+
         if (response.getStatusCode().is2xxSuccessful()) {
             Map<String, Object> responseData = (Map<String, Object>) response.getBody();
             List<Map<String, Object>> rawInvoices = (List<Map<String, Object>>) responseData.get("response_data");
 
             ObjectMapper objectMapper = new ObjectMapper();  // Jackson ObjectMapper to convert Maps to Invoice objects
-            List<Invoice> invoices = rawInvoices.stream()
+            invoices = rawInvoices.stream()
                     .map(rawInvoice -> objectMapper.convertValue(rawInvoice, Invoice.class))
                     .collect(Collectors.toList());
-
-            return invoices;
         } else {
             throw new RuntimeException("Could not fetch invoices: " + response.getBody());
         }
+
+        return invoices;
+    }
+
+    @Override
+    public List<Customer> fetchCustomers(){
+        String sessionId = sessionService.getSessionId();
+        String url = billApiUrl + "/List/Customer.json";
+
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("sessionId", sessionId);
+        formData.add("data", data);
+        formData.add("devKey", devKey);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(formData, headers);
+        ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+
+        List<Customer> customers = new ArrayList<>();
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            Map<String, Object> responseData = (Map<String, Object>) response.getBody();
+            List<Map<String, Object>> rawCustomers = (List<Map<String, Object>>) responseData.get("response_data");
+
+            ObjectMapper objectMapper = new ObjectMapper();  // Jackson ObjectMapper to convert Maps to Invoice objects
+            customers = rawCustomers.stream()
+                    .map(rawCustomer -> objectMapper.convertValue(rawCustomer, Customer.class))
+                    .collect(Collectors.toList());
+
+        } else {
+            throw new RuntimeException("Could not fetch customers: " + response.getBody());
+        }
+
+        return customers;
     }
 }

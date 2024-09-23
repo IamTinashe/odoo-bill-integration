@@ -1,4 +1,4 @@
-package com.zimworx.odoo_bill_integration.models;
+package com.zimworx.odoo_bill_integration.models.odooCustomerResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,4 +14,3 @@ public class CustomerResponse {
     private String email;
     private String phone;
 }
-

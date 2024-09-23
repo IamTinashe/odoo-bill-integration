@@ -1,11 +1,11 @@
 package com.zimworx.odoo_bill_integration.services;
 
-import com.zimworx.odoo_bill_integration.models.Invoice;
-import com.zimworx.odoo_bill_integration.models.Response;
+import com.zimworx.odoo_bill_integration.models.customerResponse.Customer;
+import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
 
 import java.util.List;
-import java.util.Map;
 
 public interface BillService {
     List<Invoice> fetchInvoices();
+    List<Customer> fetchCustomers();
 }
