@@ -1,10 +1,10 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
-import com.zimworx.odoo_bill_integration.models.Invoice;
+import com.zimworx.odoo_bill_integration.models.customerResponse.Customer;
+import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
 import com.zimworx.odoo_bill_integration.services.BillService;
 import com.zimworx.odoo_bill_integration.services.MiddlewareService;
 import com.zimworx.odoo_bill_integration.services.OdooCustomerService;
-import com.zimworx.odoo_bill_integration.services.OdooService;
 import org.apache.xmlrpc.XmlRpcException;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,8 @@ public class MiddlewareServiceImpl implements MiddlewareService {
     @Override
     public void syncInvoices() throws MalformedURLException, XmlRpcException {
         List<Invoice> invoices = billService.fetchInvoices();
+        List<Customer> customers  = billService.fetchCustomers();
+        System.out.println(customers);
         System.out.println(odooService.getClients());
         for (Invoice invoice : invoices) {
             //odooService.postInvoice(invoice);

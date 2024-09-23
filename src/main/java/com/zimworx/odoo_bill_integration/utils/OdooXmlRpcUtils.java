@@ -1,6 +1,6 @@
 package com.zimworx.odoo_bill_integration.utils;
 
-import com.zimworx.odoo_bill_integration.models.CustomerResponse;
+import com.zimworx.odoo_bill_integration.models.odooCustomerResponse.CustomerResponse;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.springframework.stereotype.Component;

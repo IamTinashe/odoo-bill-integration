@@ -1,6 +1,6 @@
 package com.zimworx.odoo_bill_integration.services;
 
-import com.zimworx.odoo_bill_integration.models.CustomerResponse;
+import com.zimworx.odoo_bill_integration.models.odooCustomerResponse.CustomerResponse;
 import org.apache.xmlrpc.XmlRpcException;
 
 import java.net.MalformedURLException;

@@ -1,7 +1,7 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
 import com.zimworx.odoo_bill_integration.config.OdooProperties;
-import com.zimworx.odoo_bill_integration.models.CustomerResponse;
+import com.zimworx.odoo_bill_integration.models.odooCustomerResponse.CustomerResponse;
 import com.zimworx.odoo_bill_integration.services.OdooAuthenticationService;
 import com.zimworx.odoo_bill_integration.services.OdooCustomerService;
 import com.zimworx.odoo_bill_integration.utils.OdooXmlRpcUtils;

@@ -1,4 +1,4 @@
-package com.zimworx.odoo_bill_integration.models;
+package com.zimworx.odoo_bill_integration.models.invoiceResponse;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
