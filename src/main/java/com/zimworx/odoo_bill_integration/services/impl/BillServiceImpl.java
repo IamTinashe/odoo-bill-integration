@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zimworx.odoo_bill_integration.models.customerResponse.Customer;
 import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
 import com.zimworx.odoo_bill_integration.services.BillService;
-import com.zimworx.odoo_bill_integration.services.SessionService;
+import com.zimworx.odoo_bill_integration.services.BillSessionService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class BillServiceImpl implements BillService {
 
     private final RestTemplate restTemplate;
-    private SessionService sessionService;
+    private BillSessionService billSessionService;
     private final String billApiUrl;
     private final String devKey;
 
@@ -32,9 +32,9 @@ public class BillServiceImpl implements BillService {
 
     private List<Invoice> invoices;
 
-    public BillServiceImpl(RestTemplate restTemplate, SessionService sessionService, @Value("${bill.api.url}") String billApiUrl, @Value("${bill.devKey}") String devKey, @Value("${bill.data}") String data) {
+    public BillServiceImpl(RestTemplate restTemplate, BillSessionService billSessionService, @Value("${bill.api.url}") String billApiUrl, @Value("${bill.devKey}") String devKey, @Value("${bill.data}") String data) {
         this.restTemplate = restTemplate;
-        this.sessionService = sessionService;
+        this.billSessionService = billSessionService;
         this.billApiUrl = billApiUrl;
         this.devKey = devKey;
         this.data = data;
@@ -42,7 +42,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<Invoice> fetchInvoices() {
-        String sessionId = sessionService.getSessionId();
+        String sessionId = billSessionService.getSessionId();
         String url = billApiUrl + "/List/Invoice.json";
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
@@ -75,7 +75,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<Customer> fetchCustomers(){
-        String sessionId = sessionService.getSessionId();
+        String sessionId = billSessionService.getSessionId();
         String url = billApiUrl + "/List/Customer.json";
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();

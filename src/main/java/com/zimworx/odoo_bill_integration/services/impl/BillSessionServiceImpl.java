@@ -1,6 +1,6 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
-import com.zimworx.odoo_bill_integration.services.SessionService;
+import com.zimworx.odoo_bill_integration.services.BillSessionService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 
 @Service
-public class SessionServiceImpl implements SessionService {
+public class BillSessionServiceImpl implements BillSessionService {
 
     private final RestTemplate restTemplate;
     private final String billApiUrl;
@@ -26,7 +26,7 @@ public class SessionServiceImpl implements SessionService {
     private String sessionId;
     private long sessionExpiryTime;
 
-    public SessionServiceImpl(
+    public BillSessionServiceImpl(
             RestTemplate restTemplate,
             @Value("${bill.api.url}") String billApiUrl,
             @Value("${bill.username}") String username,
