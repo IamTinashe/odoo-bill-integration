@@ -1,10 +1,10 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
-import com.zimworx.odoo_bill_integration.models.customerResponse.Customer;
-import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.bill.customerResponse.Customer;
+import com.zimworx.odoo_bill_integration.models.bill.invoiceResponse.Invoice;
 import com.zimworx.odoo_bill_integration.services.BillService;
 import com.zimworx.odoo_bill_integration.services.MiddlewareService;
-import com.zimworx.odoo_bill_integration.services.OdooCustomerService;
+import com.zimworx.odoo_bill_integration.services.OdooService;
 import org.apache.xmlrpc.XmlRpcException;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,9 @@ import java.util.List;
 public class MiddlewareServiceImpl implements MiddlewareService {
 
     private final BillService billService;
-    private final OdooCustomerService odooService;
+    private final OdooService odooService;
 
-    public MiddlewareServiceImpl(BillService billService, OdooCustomerService odooService) {
+    public MiddlewareServiceImpl(BillService billService, OdooService odooService) {
         this.billService = billService;
         this.odooService = odooService;
     }

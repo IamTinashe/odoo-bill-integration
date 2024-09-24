@@ -3,7 +3,7 @@ package com.zimworx.odoo_bill_integration.integrationTests;
 
 import com.zimworx.odoo_bill_integration.OdooBillIntegrationApplication;
 import com.zimworx.odoo_bill_integration.services.BillService;
-import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.bill.invoiceResponse.Invoice;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

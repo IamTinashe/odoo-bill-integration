@@ -1,8 +1,8 @@
 package com.zimworx.odoo_bill_integration.integrationTests;
 
 import com.zimworx.odoo_bill_integration.OdooBillIntegrationApplication;
-import com.zimworx.odoo_bill_integration.services.SessionService;
-import com.zimworx.odoo_bill_integration.services.impl.SessionServiceImpl;
+import com.zimworx.odoo_bill_integration.services.BillSessionService;
+import com.zimworx.odoo_bill_integration.services.impl.BillSessionServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 public class SessionServiceIntegrationTest {
 
     @Autowired
-    private SessionService sessionService;
+    private BillSessionService sessionService;
 
     @Test
     void testGetSessionId() {
@@ -37,7 +37,7 @@ public class SessionServiceIntegrationTest {
                 ), HttpStatus.OK));
 
         // Use the mock RestTemplate in the SessionService
-        SessionServiceImpl sessionServiceImpl = new SessionServiceImpl(restTemplate, "https://api-stage.bill.com/api/v2", "username", "password", "orgId", "devKey");
+        BillSessionServiceImpl sessionServiceImpl = new BillSessionServiceImpl(restTemplate, "https://api-stage.bill.com/api/v2", "username", "password", "orgId", "devKey");
         sessionServiceImpl.renewSession();
         String sessionId = sessionServiceImpl.getSessionId();
 

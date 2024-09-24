@@ -1,6 +1,6 @@
 package com.zimworx.odoo_bill_integration.unitTests;
 
-import com.zimworx.odoo_bill_integration.services.impl.SessionServiceImpl;
+import com.zimworx.odoo_bill_integration.services.impl.BillAuthenticationServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,7 +18,7 @@ class SessionServiceImplTest {
     private RestTemplate restTemplate;
 
     @InjectMocks
-    private SessionServiceImpl sessionService;
+    private BillAuthenticationServiceImpl sessionService;
 
     @Test
     void testRenewSession() {
