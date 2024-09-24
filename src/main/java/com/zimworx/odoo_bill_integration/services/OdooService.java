@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface OdooService {
     void postInvoice(Invoice invoice);
+    List<CustomerResponse> getClients() throws MalformedURLException, XmlRpcException;
 }
