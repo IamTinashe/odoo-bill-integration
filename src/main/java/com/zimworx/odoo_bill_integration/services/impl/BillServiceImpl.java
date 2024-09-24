@@ -1,8 +1,8 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zimworx.odoo_bill_integration.models.customerResponse.Customer;
-import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.bill.customerResponse.Customer;
+import com.zimworx.odoo_bill_integration.models.bill.invoiceResponse.Invoice;
 import com.zimworx.odoo_bill_integration.services.BillAuthenticationService;
 import com.zimworx.odoo_bill_integration.services.BillService;
 import org.springframework.beans.factory.annotation.Value;

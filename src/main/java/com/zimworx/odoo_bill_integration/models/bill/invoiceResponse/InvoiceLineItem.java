@@ -1,4 +1,4 @@
-package com.zimworx.odoo_bill_integration.models.invoiceResponse;
+package com.zimworx.odoo_bill_integration.models.bill.invoiceResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

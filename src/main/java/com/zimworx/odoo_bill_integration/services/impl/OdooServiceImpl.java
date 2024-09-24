@@ -1,8 +1,8 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
 import com.zimworx.odoo_bill_integration.config.OdooProperties;
-import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
-import com.zimworx.odoo_bill_integration.models.odooCustomerResponse.CustomerResponse;
+import com.zimworx.odoo_bill_integration.models.bill.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.odoo.customerResponse.Customer;
 import com.zimworx.odoo_bill_integration.services.OdooAuthenticationService;
 import com.zimworx.odoo_bill_integration.services.OdooService;
 import com.zimworx.odoo_bill_integration.utils.OdooXmlRpcUtils;
@@ -63,11 +63,11 @@ public class OdooServiceImpl implements OdooService {
     }
 
     @Override
-    public List<CustomerResponse> getClients() throws MalformedURLException, XmlRpcException {
+    public List<Customer> getClients() throws MalformedURLException, XmlRpcException {
         return fetchCustomers("Active Customer");
     }
 
-    private List<CustomerResponse> fetchCustomers(String customerStage) throws MalformedURLException, XmlRpcException {
+    private List<Customer> fetchCustomers(String customerStage) throws MalformedURLException, XmlRpcException {
         XmlRpcClient client = xmlRpcUtils.createClient(odooProperties.getUrl(), "/xmlrpc/2/object");
         int uid = authenticationService.authenticate();
         List<Object> customers = asList((Object[]) client.execute("execute_kw", asList(
@@ -79,7 +79,7 @@ public class OdooServiceImpl implements OdooService {
                 }}
         )));
 
-        List<CustomerResponse> customerResponses = new ArrayList<>();
+        List<Customer> customerResponses = new ArrayList<>();
         for (Object customer : customers) {
             customerResponses.add(xmlRpcUtils.convertCustomerResponse((HashMap<String, Object>) customer));
         }

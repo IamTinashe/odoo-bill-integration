@@ -1,7 +1,7 @@
 package com.zimworx.odoo_bill_integration.services.impl;
 
-import com.zimworx.odoo_bill_integration.models.customerResponse.Customer;
-import com.zimworx.odoo_bill_integration.models.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.bill.customerResponse.Customer;
+import com.zimworx.odoo_bill_integration.models.bill.invoiceResponse.Invoice;
 import com.zimworx.odoo_bill_integration.services.BillService;
 import com.zimworx.odoo_bill_integration.services.MiddlewareService;
 import com.zimworx.odoo_bill_integration.services.OdooService;
