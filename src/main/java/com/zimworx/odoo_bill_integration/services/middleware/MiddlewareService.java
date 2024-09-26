@@ -1,4 +1,4 @@
-package com.zimworx.odoo_bill_integration.services;
+package com.zimworx.odoo_bill_integration.services.middleware;
 
 import org.apache.xmlrpc.XmlRpcException;
 

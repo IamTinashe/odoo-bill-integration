@@ -1,7 +1,8 @@
 package com.zimworx.odoo_bill_integration.controllers;
 
-import com.zimworx.odoo_bill_integration.services.MiddlewareService;
-import org.apache.xmlrpc.XmlRpcException;
+
+
+import com.zimworx.odoo_bill_integration.services.middleware.MiddlewareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
