@@ -1,6 +1,6 @@
 package com.zimworx.odoo_bill_integration.utils;
 
-import com.zimworx.odoo_bill_integration.models.odooCustomerResponse.CustomerResponse;
+import com.zimworx.odoo_bill_integration.models.odoo.customerResponse.Customer;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.springframework.stereotype.Component;
@@ -20,8 +20,8 @@ public class OdooXmlRpcUtils {
         return client;
     }
 
-    public CustomerResponse convertCustomerResponse(HashMap<String, Object> customerMap) {
-        CustomerResponse customer = new CustomerResponse();
+    public Customer convertCustomerResponse(HashMap<String, Object> customerMap) {
+        Customer customer = new Customer();
         customer.setId((Integer) customerMap.getOrDefault("id", 0));
         customer.setName(customerMap.get("name") != null ? customerMap.get("name").toString() : "");
         customer.setCity(customerMap.get("city") != null ? customerMap.get("city").toString() : "");

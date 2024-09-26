@@ -1,4 +1,4 @@
-package com.zimworx.odoo_bill_integration.models.odooCustomerResponse;
+package com.zimworx.odoo_bill_integration.models.odoo.customerResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerResponse {
+public class Customer {
     @NonNull
     private int id;
     private String name;
