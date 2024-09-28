@@ -37,8 +37,8 @@ public class MiddlewareServiceImpl implements MiddlewareService {
     public void syncInvoices() {
         logger.info("Starting invoice synchronization");
         try {
-            List<Invoice> invoices = invoiceService.fetchInvoices();
-            List<Customer> customers = customerService.fetchCustomers();
+            List<Invoice> billInvoices = invoiceService.fetchBillInvoices();
+            List<Customer> billCustomers = customerService.fetchBillCustomers();
 
             // Synchronize customers
             odooService.syncCustomers(customers);

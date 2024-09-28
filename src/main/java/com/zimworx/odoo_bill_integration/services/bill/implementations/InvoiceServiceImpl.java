@@ -48,7 +48,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> fetchInvoices() {
+    public List<Invoice> fetchBillInvoices() {
         logger.info("Fetching invoices from Bill.com");
         String sessionId = billAuthenticationService.getSessionId();
         String url = billApiUrl + "/List/Invoice.json";

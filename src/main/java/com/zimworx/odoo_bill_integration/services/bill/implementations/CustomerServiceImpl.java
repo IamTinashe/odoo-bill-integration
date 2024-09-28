@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> fetchCustomers() {
+    public List<Customer> fetchBillCustomers() {
         logger.info("Fetching customers from Bill.com");
         String sessionId = billAuthenticationService.getSessionId();
         String url = billApiUrl + "/List/Customer.json";
