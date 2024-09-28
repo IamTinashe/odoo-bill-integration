@@ -43,9 +43,9 @@ public class OdooXmlRpcUtils {
     public OdooInvoice convertInvoiceResponse(Map<String, Object> invoiceMap){
         OdooInvoice invoice = new OdooInvoice();
         invoice.setId((Integer) invoiceMap.getOrDefault("id", 0));
-        invoice.setAmount_paid((Integer) invoiceMap.getOrDefault("amount_paid", ""));
-        invoice.setResidual_amount((Integer) invoiceMap.getOrDefault("residual_amount", 0));
-        invoice.setAmount_total((Integer) invoiceMap.getOrDefault("amount_total", 0));
+        invoice.setAmount_paid((Double) invoiceMap.getOrDefault("amount_paid", ""));
+        invoice.setAmount_residual((Double) invoiceMap.getOrDefault("amount_residual", 0));
+        invoice.setAmount_total((Double) invoiceMap.getOrDefault("amount_total", 0));
 
         logger.debug("Converted invoice: {}", invoice);
         return invoice;

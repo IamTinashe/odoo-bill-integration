@@ -44,7 +44,7 @@ public class OdooInvoiceServiceImpl implements OdooInvoiceService {
     public List<OdooInvoice> fetchOdooInvoices() throws MalformedURLException, XmlRpcException {
         logger.info("Fetching clients from Odoo");
         try {
-            return fetchInvoices("Draft");
+            return fetchInvoices("draft");
         } catch (Exception e) {
             logger.error("Failed to fetch clients from Odoo: {}", e.getMessage(), e);
             throw new OdooServiceException("Failed to fetch clients from Odoo", e);
@@ -59,7 +59,7 @@ public class OdooInvoiceServiceImpl implements OdooInvoiceService {
                 "account.move", "search_read",
                 asList(asList(asList("state", "=", state))),
                 new HashMap<String, Object>() {{
-                    put("fields", asList("id", "amount_paid", "residual_amount", "amount_total"));
+                    put("fields", asList("id", "amount_paid", "amount_residual", "amount_total"));
                 }}
         )));
 
