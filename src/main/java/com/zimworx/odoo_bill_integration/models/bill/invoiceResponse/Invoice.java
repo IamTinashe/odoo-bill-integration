@@ -18,6 +18,8 @@ public class Invoice {
     private String entity;
     @NonNull
     private String id;
+
+    private String customerName;
     private String isActive;
     private String createdBy;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
