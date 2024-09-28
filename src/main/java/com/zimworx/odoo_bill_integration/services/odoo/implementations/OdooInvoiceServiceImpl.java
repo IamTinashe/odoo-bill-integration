@@ -1,7 +1,7 @@
 package com.zimworx.odoo_bill_integration.services.odoo.implementations;
 
 import com.zimworx.odoo_bill_integration.config.OdooProperties;
-import com.zimworx.odoo_bill_integration.errorhandlers.OdooServiceException;
+import com.zimworx.odoo_bill_integration.exceptions.OdooServiceException;
 import com.zimworx.odoo_bill_integration.models.odoo.OdooInvoice;
 import com.zimworx.odoo_bill_integration.services.odoo.OdooAuthenticationService;
 import com.zimworx.odoo_bill_integration.services.odoo.OdooInvoiceService;

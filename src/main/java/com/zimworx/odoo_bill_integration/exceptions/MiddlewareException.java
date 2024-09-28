@@ -1,4 +1,4 @@
-package com.zimworx.odoo_bill_integration.errorhandlers;
+package com.zimworx.odoo_bill_integration.exceptions;
 
 public class MiddlewareException extends RuntimeException {
     public MiddlewareException(String message) {

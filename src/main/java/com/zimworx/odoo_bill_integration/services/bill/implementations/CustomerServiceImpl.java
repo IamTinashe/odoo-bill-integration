@@ -1,7 +1,7 @@
 package com.zimworx.odoo_bill_integration.services.bill.implementations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zimworx.odoo_bill_integration.errorhandlers.BillServiceException;
+import com.zimworx.odoo_bill_integration.exceptions.BillServiceException;
 import com.zimworx.odoo_bill_integration.models.bill.customerResponse.Customer;
 import com.zimworx.odoo_bill_integration.services.bill.BillAuthenticationService;
 import com.zimworx.odoo_bill_integration.services.bill.CustomerService;

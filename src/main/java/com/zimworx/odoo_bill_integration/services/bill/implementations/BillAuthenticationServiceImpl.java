@@ -1,6 +1,6 @@
 package com.zimworx.odoo_bill_integration.services.bill.implementations;
 
-import com.zimworx.odoo_bill_integration.errorhandlers.BillServiceException;
+import com.zimworx.odoo_bill_integration.exceptions.BillServiceException;
 import com.zimworx.odoo_bill_integration.services.bill.BillAuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

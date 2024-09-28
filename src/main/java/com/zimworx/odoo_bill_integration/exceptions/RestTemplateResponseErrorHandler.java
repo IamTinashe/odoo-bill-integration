@@ -1,4 +1,4 @@
-package com.zimworx.odoo_bill_integration.errorhandlers;
+package com.zimworx.odoo_bill_integration.exceptions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

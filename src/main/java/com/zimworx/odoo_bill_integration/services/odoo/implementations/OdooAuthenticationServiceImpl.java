@@ -1,20 +1,17 @@
 package com.zimworx.odoo_bill_integration.services.odoo.implementations;
 
-import com.zimworx.odoo_bill_integration.OdooBillIntegrationApplication;
 import com.zimworx.odoo_bill_integration.config.OdooProperties;
-import com.zimworx.odoo_bill_integration.errorhandlers.OdooServiceException;
+import com.zimworx.odoo_bill_integration.exceptions.OdooServiceException;
 import com.zimworx.odoo_bill_integration.services.odoo.OdooAuthenticationService;
 import com.zimworx.odoo_bill_integration.utils.OdooXmlRpcUtils;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
-import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyMap;

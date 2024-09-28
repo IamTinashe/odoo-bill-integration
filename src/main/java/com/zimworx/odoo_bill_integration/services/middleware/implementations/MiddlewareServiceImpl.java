@@ -1,6 +1,6 @@
 package com.zimworx.odoo_bill_integration.services.middleware.implementations;
 
-import com.zimworx.odoo_bill_integration.errorhandlers.MiddlewareException;
+import com.zimworx.odoo_bill_integration.exceptions.MiddlewareException;
 import com.zimworx.odoo_bill_integration.models.bill.customerResponse.Customer;
 import com.zimworx.odoo_bill_integration.models.bill.invoiceResponse.Invoice;
 import com.zimworx.odoo_bill_integration.services.bill.CustomerService;
