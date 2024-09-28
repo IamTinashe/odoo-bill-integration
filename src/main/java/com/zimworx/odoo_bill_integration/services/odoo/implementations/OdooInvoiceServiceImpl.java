@@ -2,8 +2,7 @@ package com.zimworx.odoo_bill_integration.services.odoo.implementations;
 
 import com.zimworx.odoo_bill_integration.config.OdooProperties;
 import com.zimworx.odoo_bill_integration.errorhandlers.OdooServiceException;
-import com.zimworx.odoo_bill_integration.models.odoo.customerResponse.Customer;
-import com.zimworx.odoo_bill_integration.models.odoo.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.odoo.OdooInvoice;
 import com.zimworx.odoo_bill_integration.services.odoo.OdooAuthenticationService;
 import com.zimworx.odoo_bill_integration.services.odoo.OdooInvoiceService;
 import com.zimworx.odoo_bill_integration.utils.OdooXmlRpcUtils;
@@ -12,6 +11,7 @@ import org.apache.xmlrpc.client.XmlRpcClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
+@Service
 public class OdooInvoiceServiceImpl implements OdooInvoiceService {
 
     private static final Logger logger = LoggerFactory.getLogger(OdooCustomerServiceImpl.class);
@@ -40,7 +41,7 @@ public class OdooInvoiceServiceImpl implements OdooInvoiceService {
 
 
     @Override
-    public List<Invoice> fetchOdooInvoices() throws MalformedURLException, XmlRpcException {
+    public List<OdooInvoice> fetchOdooInvoices() throws MalformedURLException, XmlRpcException {
         logger.info("Fetching clients from Odoo");
         try {
             return fetchInvoices("Draft");
@@ -50,7 +51,7 @@ public class OdooInvoiceServiceImpl implements OdooInvoiceService {
         }
     }
 
-    private List<Invoice> fetchInvoices(String state) throws MalformedURLException, XmlRpcException {
+    private List<OdooInvoice> fetchInvoices(String state) throws MalformedURLException, XmlRpcException {
         XmlRpcClient client = xmlRpcUtils.createClient(odooProperties.getUrl(), "/xmlrpc/2/object");
         int uid = authenticationService.authenticate();
         List<Object> customers = asList((Object[]) client.execute("execute_kw", asList(
@@ -62,7 +63,7 @@ public class OdooInvoiceServiceImpl implements OdooInvoiceService {
                 }}
         )));
 
-        List<Invoice> invoiceResponses = new ArrayList<>();
+        List<OdooInvoice> invoiceResponses = new ArrayList<>();
         for (Object invoice : customers) {
             invoiceResponses.add(xmlRpcUtils.convertInvoiceResponse((HashMap<String, Object>) invoice));
         }
@@ -70,7 +71,7 @@ public class OdooInvoiceServiceImpl implements OdooInvoiceService {
     }
 
     @Override
-    public void postInvoice(Invoice invoice) {
+    public void postInvoice(OdooInvoice invoice) {
         //logger.info("Posting invoice to Odoo: {}", invoice.getInvoiceNumber());
         try {
             // Implement logic to post invoice via XML-RPC
@@ -81,6 +82,4 @@ public class OdooInvoiceServiceImpl implements OdooInvoiceService {
             throw new OdooServiceException("Failed to post invoice to Odoo", e);
         }
     }
-
-
 }

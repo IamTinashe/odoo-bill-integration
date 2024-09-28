@@ -1,7 +1,7 @@
 package com.zimworx.odoo_bill_integration.utils;
 
-import com.zimworx.odoo_bill_integration.models.odoo.customerResponse.Customer;
-import com.zimworx.odoo_bill_integration.models.odoo.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.odoo.OdooCustomer;
+import com.zimworx.odoo_bill_integration.models.odoo.OdooInvoice;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.slf4j.Logger;
@@ -27,8 +27,8 @@ public class OdooXmlRpcUtils {
         return client;
     }
 
-    public Customer convertCustomerResponse(Map<String, Object> customerMap) {
-        Customer customer = new Customer();
+    public OdooCustomer convertCustomerResponse(Map<String, Object> customerMap) {
+        OdooCustomer customer = new OdooCustomer();
         customer.setId((Integer) customerMap.getOrDefault("id", 0));
         customer.setName((String) customerMap.getOrDefault("name", ""));
         customer.setCity((String) customerMap.getOrDefault("city", ""));
@@ -38,8 +38,8 @@ public class OdooXmlRpcUtils {
         return customer;
     }
 
-    public Invoice convertInvoiceResponse(Map<String, Object> invoiceMap){
-        Invoice invoice = new Invoice();
+    public OdooInvoice convertInvoiceResponse(Map<String, Object> invoiceMap){
+        OdooInvoice invoice = new OdooInvoice();
         invoice.setId((Integer) invoiceMap.getOrDefault("id", 0));
         invoice.setAmount_paid((Integer) invoiceMap.getOrDefault("amount_paid", ""));
         invoice.setResidual_amount((Integer) invoiceMap.getOrDefault("residual_amount", 0));

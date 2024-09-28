@@ -1,4 +1,4 @@
-package com.zimworx.odoo_bill_integration.models.odoo.invoiceResponse;
+package com.zimworx.odoo_bill_integration.models.odoo;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,7 +11,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Invoice {
+public class OdooInvoice {
 
     @NonNull
     Integer id;

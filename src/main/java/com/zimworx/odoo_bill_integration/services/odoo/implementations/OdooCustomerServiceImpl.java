@@ -2,8 +2,7 @@ package com.zimworx.odoo_bill_integration.services.odoo.implementations;
 
 import com.zimworx.odoo_bill_integration.config.OdooProperties;
 import com.zimworx.odoo_bill_integration.errorhandlers.OdooServiceException;
-import com.zimworx.odoo_bill_integration.models.odoo.customerResponse.Customer;
-import com.zimworx.odoo_bill_integration.models.odoo.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.odoo.OdooCustomer;
 import com.zimworx.odoo_bill_integration.services.odoo.OdooAuthenticationService;
 import com.zimworx.odoo_bill_integration.services.odoo.OdooCustomerService;
 import com.zimworx.odoo_bill_integration.utils.OdooXmlRpcUtils;
@@ -41,7 +40,7 @@ public class OdooCustomerServiceImpl implements OdooCustomerService {
     }
 
     @Override
-    public List<Customer> fetchOdooCustomers() throws MalformedURLException, XmlRpcException {
+    public List<OdooCustomer> fetchOdooCustomers() throws MalformedURLException, XmlRpcException {
         logger.info("Fetching clients from Odoo");
         try {
             return fetchCustomers("Active Customer");
@@ -51,7 +50,7 @@ public class OdooCustomerServiceImpl implements OdooCustomerService {
         }
     }
 
-    private List<Customer> fetchCustomers(String customerStage) throws MalformedURLException, XmlRpcException {
+    private List<OdooCustomer> fetchCustomers(String customerStage) throws MalformedURLException, XmlRpcException {
         XmlRpcClient client = xmlRpcUtils.createClient(odooProperties.getUrl(), "/xmlrpc/2/object");
         int uid = authenticationService.authenticate();
         List<Object> customers = asList((Object[]) client.execute("execute_kw", asList(
@@ -63,7 +62,7 @@ public class OdooCustomerServiceImpl implements OdooCustomerService {
                 }}
         )));
 
-        List<Customer> customerResponses = new ArrayList<>();
+        List<OdooCustomer> customerResponses = new ArrayList<>();
         for (Object customer : customers) {
             customerResponses.add(xmlRpcUtils.convertCustomerResponse((HashMap<String, Object>) customer));
         }
