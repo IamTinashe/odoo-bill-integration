@@ -3,6 +3,8 @@ package com.zimworx.odoo_bill_integration.services.middleware.implementations;
 import com.zimworx.odoo_bill_integration.exceptions.MiddlewareException;
 import com.zimworx.odoo_bill_integration.models.bill.customerResponse.Customer;
 import com.zimworx.odoo_bill_integration.models.bill.invoiceResponse.Invoice;
+import com.zimworx.odoo_bill_integration.models.odoo.OdooCustomer;
+import com.zimworx.odoo_bill_integration.models.odoo.OdooInvoice;
 import com.zimworx.odoo_bill_integration.services.bill.CustomerService;
 import com.zimworx.odoo_bill_integration.services.bill.InvoiceService;
 import com.zimworx.odoo_bill_integration.services.middleware.MiddlewareService;
@@ -39,6 +41,10 @@ public class MiddlewareServiceImpl implements MiddlewareService {
         try {
             List<Invoice> billInvoices = invoiceService.fetchBillInvoices();
             List<Customer> billCustomers = customerService.fetchBillCustomers();
+            List<OdooInvoice> odooInvoices = odooInvoiceService.fetchOdooInvoices();
+            List<OdooCustomer> odooCustomers = odooCustomerService.fetchOdooCustomers();
+
+            System.out.println(odooInvoices);
             logger.info("Invoice synchronization completed successfully");
         } catch (Exception e) {
             logger.error("Error during invoice synchronization: {}", e.getMessage(), e);

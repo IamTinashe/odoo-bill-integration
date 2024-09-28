@@ -18,6 +18,8 @@ public class OdooXmlRpcUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(OdooXmlRpcUtils.class);
 
+    private Helpers helpers = new Helpers();
+
     public XmlRpcClient createClient(String url, String endpoint) throws MalformedURLException {
         logger.debug("Creating XML-RPC client for URL: {}{}", url, endpoint);
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
@@ -30,10 +32,10 @@ public class OdooXmlRpcUtils {
     public OdooCustomer convertCustomerResponse(Map<String, Object> customerMap) {
         OdooCustomer customer = new OdooCustomer();
         customer.setId((Integer) customerMap.getOrDefault("id", 0));
-        customer.setName((String) customerMap.getOrDefault("name", ""));
-        customer.setCity((String) customerMap.getOrDefault("city", ""));
-        customer.setEmail((String) customerMap.getOrDefault("email", ""));
-        customer.setPhone((String) customerMap.getOrDefault("phone", ""));
+        customer.setName(helpers.getStringValue(customerMap.getOrDefault("name", "")));
+        customer.setCity(helpers.getStringValue(customerMap.getOrDefault("city", "")));
+        customer.setEmail(helpers.getStringValue(customerMap.getOrDefault("email", "")));
+        customer.setPhone(helpers.getStringValue(customerMap.getOrDefault("phone", "")));
         logger.debug("Converted customer: {}", customer);
         return customer;
     }

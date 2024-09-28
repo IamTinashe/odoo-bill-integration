@@ -12,12 +12,8 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-
-        // Set a custom error handler
         restTemplate.setErrorHandler(new RestTemplateResponseErrorHandler());
-
         restTemplate.getInterceptors().add(new LoggingRequestInterceptor());
-
 
         return restTemplate;
     }
