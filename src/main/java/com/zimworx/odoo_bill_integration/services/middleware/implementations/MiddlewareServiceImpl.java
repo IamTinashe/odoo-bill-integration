@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MiddlewareServiceImpl implements MiddlewareService {
@@ -42,9 +43,9 @@ public class MiddlewareServiceImpl implements MiddlewareService {
             List<Invoice> billInvoices = invoiceService.fetchBillInvoices();
             List<Customer> billCustomers = customerService.fetchBillCustomers();
             List<OdooInvoice> odooInvoices = odooInvoiceService.fetchOdooInvoices();
-            List<OdooCustomer> odooCustomers = odooCustomerService.fetchOdooCustomers();
+            odooInvoices = odooInvoices.stream().filter(invoice -> invoice.getCustomerName() != null && !invoice.getCustomerName().isEmpty()).collect(Collectors.toList());
 
-            System.out.println(odooInvoices);
+            List<OdooCustomer> odooCustomers = odooCustomerService.fetchOdooCustomers();
             logger.info("Invoice synchronization completed successfully");
         } catch (Exception e) {
             logger.error("Error during invoice synchronization: {}", e.getMessage(), e);

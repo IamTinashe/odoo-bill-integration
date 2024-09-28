@@ -15,6 +15,8 @@ public class OdooInvoice {
 
     @NonNull
     Integer id;
+    String customerName;
+    Integer customerId;
     Double amount_paid;
     Double amount_residual;
     Double amount_total;

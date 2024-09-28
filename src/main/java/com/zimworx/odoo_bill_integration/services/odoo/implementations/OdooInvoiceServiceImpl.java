@@ -54,17 +54,17 @@ public class OdooInvoiceServiceImpl implements OdooInvoiceService {
     private List<OdooInvoice> fetchInvoices(String state) throws MalformedURLException, XmlRpcException {
         XmlRpcClient client = xmlRpcUtils.createClient(odooProperties.getUrl(), "/xmlrpc/2/object");
         int uid = authenticationService.authenticate();
-        List<Object> customers = asList((Object[]) client.execute("execute_kw", asList(
+        List<Object> invoices = asList((Object[]) client.execute("execute_kw", asList(
                 odooProperties.getDb(), uid, odooProperties.getPassword(),
                 "account.move", "search_read",
                 asList(asList(asList("state", "=", state))),
                 new HashMap<String, Object>() {{
-                    put("fields", asList("id", "amount_paid", "amount_residual", "amount_total"));
+                    put("fields", asList("id", "partner_id", "amount_paid", "amount_residual", "amount_total"));
                 }}
         )));
 
         List<OdooInvoice> invoiceResponses = new ArrayList<>();
-        for (Object invoice : customers) {
+        for (Object invoice : invoices) {
             invoiceResponses.add(xmlRpcUtils.convertInvoiceResponse((HashMap<String, Object>) invoice));
         }
         return invoiceResponses;
