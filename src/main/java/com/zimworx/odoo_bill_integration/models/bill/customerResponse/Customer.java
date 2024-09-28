@@ -1,9 +1,11 @@
 package com.zimworx.odoo_bill_integration.models.bill.customerResponse;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.Date;
 
@@ -13,9 +15,12 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
     private String entity;
+    @NonNull
     private String id;
     private String isActive;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date createdTime;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date updatedTime;
     private String name;
     private Object shortName;

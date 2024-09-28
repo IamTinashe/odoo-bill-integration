@@ -1,9 +1,11 @@
 package com.zimworx.odoo_bill_integration.models.bill.invoiceResponse;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.Date;
 import java.util.List;
@@ -14,10 +16,13 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Invoice {
     private String entity;
+    @NonNull
     private String id;
     private String isActive;
     private String createdBy;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date createdTime;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date updatedTime;
     private String customerId;
     private String invoiceNumber;
@@ -33,6 +38,7 @@ public class Invoice {
     private String poNumber;
     private Boolean isToBePrinted;
     private Boolean isToBeEmailed;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date lastSentTime;
     private String itemSalesTax;
     private Double salesTaxPercentage;

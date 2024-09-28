@@ -1,6 +1,10 @@
-package com.zimworx.odoo_bill_integration.services.impl;
+package com.zimworx.odoo_bill_integration.services.bill.implementations;
 
-import com.zimworx.odoo_bill_integration.services.BillAuthenticationService;
+import com.zimworx.odoo_bill_integration.exceptions.BillServiceException;
+import com.zimworx.odoo_bill_integration.services.bill.BillAuthenticationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +20,8 @@ import java.util.Map;
 @Service
 public class BillAuthenticationServiceImpl implements BillAuthenticationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(BillAuthenticationServiceImpl.class);
+
     private final RestTemplate restTemplate;
     private final String billApiUrl;
     private final String username;
@@ -26,6 +32,7 @@ public class BillAuthenticationServiceImpl implements BillAuthenticationService 
     private String sessionId;
     private long sessionExpiryTime;
 
+    @Autowired
     public BillAuthenticationServiceImpl(
             RestTemplate restTemplate,
             @Value("${bill.api.url}") String billApiUrl,
@@ -42,7 +49,7 @@ public class BillAuthenticationServiceImpl implements BillAuthenticationService 
     }
 
     @Override
-    public String getSessionId() {
+    public synchronized String getSessionId() {
         if (sessionId == null || System.currentTimeMillis() > sessionExpiryTime) {
             renewSession();
         }
@@ -50,7 +57,8 @@ public class BillAuthenticationServiceImpl implements BillAuthenticationService 
     }
 
     @Override
-    public void renewSession() {
+    public synchronized void renewSession() {
+        logger.info("Renewing Bill.com session");
         String url = billApiUrl + "/Login.json";
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
@@ -64,14 +72,21 @@ public class BillAuthenticationServiceImpl implements BillAuthenticationService 
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(formData, headers);
 
-        ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+        try {
+            ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
 
-        if (response.getStatusCode().is2xxSuccessful()) {
-            Map<String, Object> responseData = (Map<String, Object>) response.getBody().get("response_data");
-            this.sessionId = (String) responseData.get("sessionId");
-            this.sessionExpiryTime = System.currentTimeMillis() + (115 * 60 * 1000);
-        } else {
-            throw new RuntimeException("Failed to authenticate with Bill.com: " + response.getBody());
+            if (response.getStatusCode().is2xxSuccessful()) {
+                Map<String, Object> responseData = (Map<String, Object>) response.getBody().get("response_data");
+                this.sessionId = (String) responseData.get("sessionId");
+                this.sessionExpiryTime = System.currentTimeMillis() + (115 * 60 * 1000);
+                logger.info("Session renewed successfully. Session ID: {}", sessionId);
+            } else {
+                logger.error("Failed to authenticate with Bill.com: {}", response.getBody());
+                throw new BillServiceException("Failed to authenticate with Bill.com");
+            }
+        } catch (Exception e) {
+            logger.error("Exception during Bill.com authentication: {}", e.getMessage(), e);
+            throw new BillServiceException("Exception during Bill.com authentication", e);
         }
     }
 }
