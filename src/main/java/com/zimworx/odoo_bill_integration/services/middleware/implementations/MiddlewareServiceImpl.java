@@ -45,5 +45,7 @@ public class MiddlewareServiceImpl implements MiddlewareService {
             throw new MiddlewareException("Error during invoice synchronization", e);
         }
     }
+
+
 }
 
