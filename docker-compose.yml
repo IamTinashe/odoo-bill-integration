@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  odoo-bill-integration:
+    image: odoo-bill-integration:latest
+    build: .
+    ports:
+      - "8090:8090"
+    environment:
+      BILL_API_URL: ${BILL_URL}
+      BILL_USERNAME: ${BILL_USERNAME}
+      BILL_PASSWORD: ${BILL_PASSWORD}
+      BILL_ORG_ID: ${BILL_ORG_ID}
+      BILL_DEV_KEY: ${BILL_DEV_KEY}
+      BILL_DATA: ${BILL_DATA}
+      ODOO_API_URL: ${ODOO_API_URL}
+      ODOO_API_DB: ${ODOO_API_DB}
+      ODOO_API_USERNAME: ${ODOO_API_USERNAME}
+      ODOO_API_PASSWORD: ${ODOO_API_PASSWORD}
