@@ -1,4 +1,5 @@
 # Odoo-Bill Integration
+**Seemless synchronization**
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
